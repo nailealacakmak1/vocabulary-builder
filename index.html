@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Oxford 5000</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
+    <script src="words.js"></script>
+    <script src="index.js"></script>
+  </head>
+  <body>
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-8 mx-auto">
+          <div class="col-12">
+            <div class="row">
+              <h1>Today's word</h1>
+            </div>
+            <div class="row mt-3">
+              <div class="col-3">
+                <p>
+                  Word: <br />
+                  <b id="word"></b>
+                </p>
+              </div>
+              <div class="col-2">
+                <p>
+                  CEFR: <br />
+                  <b id="cefr-level"></b>
+                </p>
+              </div>
+              <div class="col-3">
+                <p>
+                  Type: <br />
+                  <b id="type"></b>
+                </p>
+              </div>
+              <div class="col-4">
+                <div class="row col-md-12">
+                  <p>
+                    Already learned : <br />
+                    <b id="already-learned"></b> / <b id="total-words"></b>
+                  </p>
+                </div>
+                <div class="row col-md-12">
+                  <button
+                    class="btn btn-success"
+                    id="pick-another-word"
+                    onclick="renderWord()"
+                  >
+                    Pick a word
+                  </button>
+                </div>
+                <div class="row col-md-12 mt-2">
+                  <button
+                    class="btn btn-danger"
+                    id="reset-cache"
+                    onclick="resetCache()"
+                  >
+                    Clear Shown Words
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-3">
+                <p>
+                  Definition: <br />
+                  <span id="definition">
+                    <b>Definition takes place here</b>
+                  </span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      init();
+      function init() {
+        updateStatistics()
+      }
+
+      function renderWord() {
+        const word = pickRandomWord();
+        document.getElementById("word").innerHTML = word.word;
+        document.getElementById("cefr-level").innerHTML = word.belongTo;
+        document.getElementById("type").innerHTML = word.type;
+        updateStatistics()
+      }
+
+      function updateStatistics(){
+        document.getElementById("already-learned").innerHTML =
+          getNumberOfWordsAlreadyShown();
+        document.getElementById("total-words").innerHTML = getNumberOfWords();
+      }
+    </script>
+  </body>
+</html>
